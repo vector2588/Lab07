@@ -29,20 +29,6 @@ public class EventServiceImpl implements EventService {
         return eventDao.getEvent(id);
     }
 
-    @Override
-    public Integer getOrganizerSize() {
-        return eventDao.getOrganizerSize();
-    }
-
-    @Override
-    public List<Organizer> getOrganizers(Integer pageSize, Integer page) {
-        return eventDao.getOrganizers(pageSize, page);
-    }
-
-    @Override
-    public Organizer getOrganizer(Long id) {
-        return eventDao.getOrganizer(id);
-    }
 
 
 }

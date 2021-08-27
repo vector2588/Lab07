@@ -2,6 +2,7 @@ package com.example.lab7.controller;
 
 import com.example.lab7.entity.Organizer;
 import com.example.lab7.service.EventService;
+import com.example.lab7.service.OrganizerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,35 +19,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class EventController {
+public class OrganizerController {
 
     @Autowired
-    EventService eventService;
+    OrganizerService organizerService;
 
-    @GetMapping("events")
-    public ResponseEntity<?> gettEventLists(@RequestParam(value = "_limit",
+    @GetMapping("organizers")
+    public ResponseEntity<?> getOrganizerLists(@RequestParam(value = "_limit",
             required = false) Integer perPage, @RequestParam(value = "_page", required = false) Integer page) {
-        List<Event> output = null;
-        Integer eventSize = eventService.getEventSize();
+        List<Organizer> output = null;
+        Integer organizerSize = organizerService.getOrganizerSize();
         HttpHeaders responseHeader = new HttpHeaders();
-        responseHeader.set("x-total-count", String.valueOf(eventSize));
+        responseHeader.set("x-total-count", String.valueOf(organizerSize));
         try {
-            output = eventService.getEvents(perPage, page);
+            output = organizerService.getOrganizers(perPage, page);
             return new ResponseEntity<>(output,responseHeader,HttpStatus.OK);
         } catch (IndexOutOfBoundsException ex) {
             return new ResponseEntity<>(output,responseHeader,HttpStatus.NOT_FOUND);
         }
     }
 
-    @GetMapping("events/{id}")
-    public ResponseEntity<?> getEvent(@PathVariable("id") Long id) {
-        Event output = eventService.getEvent(id);
+    @GetMapping("organizers/{id}")
+    public ResponseEntity<?> getOrganizer(@PathVariable("id") Long id) {
+        Organizer output = organizerService.getOrganizer(id);
         if (output != null){
             return ResponseEntity.ok(output);
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"The given id is not found");
         }
     }
-
-
 }

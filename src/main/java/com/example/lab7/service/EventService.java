@@ -10,7 +10,4 @@ public interface EventService {
     List<Event> getEvents(Integer pageSize, Integer page);
     Event getEvent(Long id);
 
-    Integer getOrganizerSize();
-    List<Organizer> getOrganizers(Integer pageSize, Integer page);
-    Organizer getOrganizer(Long id);
 }
